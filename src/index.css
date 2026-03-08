@@ -1,0 +1,128 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* background-color: #e6e6e6; */
+}
+
+@font-face {
+  font-family: headerFont;
+  src: url(./fonts/Audiowide-Regular.ttf);
+}
+
+@font-face {
+  font-family: siteFont;
+  src: url(./fonts/Roboto-Black.ttf);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.wordieMenu{
+  height: 160px;
+}
+
+.Header{
+  padding-top: 50px;
+  font-family: headerFont;
+  font-size: 60px;
+  color: #1aa3ff;
+  text-shadow: 2px 2px #b3b3b3
+}
+
+.Menu{
+  box-shadow: 5px 10px;
+}
+
+.Container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+.HomeText{
+  font-size: 40px;
+  text-align: left; 
+  color: #666666;
+  padding-left:200px;
+  font-weight: 700;
+}
+
+.impLink{
+  text-decoration: none;
+}
+
+.Navlinks:hover{
+  color: #1aa3ff;
+  padding-bottom: 10px;
+  transition: 0.3s;
+}
+
+/* Below stuff belongs to the Mind Map creation part  */
+/* ################################################ */
+/* ################################################ */
+ 
+  foreignObject {
+    box-sizing: border-box;
+    font-family: sans-serif;
+  }
+  
+  .mind-map-node {
+    padding: 10px;
+    width: 120px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .magenta {
+    color: rgb(241, 3, 200);
+    border-color: rgb(241, 3, 200);
+    background-color: rgb(251, 175, 238);
+  }
+  
+  .violet {
+    color: rgb(134, 3, 241);
+    border-color: rgb(134, 3, 241);
+    background-color: rgb(215, 166, 254);
+  }
+  
+  .blue {
+    color: rgb(0, 100, 210);
+    border-color: rgb(0, 100, 210);
+    background-color: rgb(176, 213, 254);
+  }
+  
+  .turquoise {
+    color: rgb(3, 211, 207);
+    border-color: rgb(3, 211, 207);
+    background-color: rgb(190, 254, 253);
+  }
+
+.MindMapViwerWindow{
+  height: 20px;
+}
+
+.MindMapText{
+  font-size: 30px;
+  text-align: center; 
+  color: #666666;
+  font-weight: 700;
+}
+
+.fileButton{
+  color: #1aa3ff;
+}
+
