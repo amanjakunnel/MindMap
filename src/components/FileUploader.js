@@ -1,51 +1,73 @@
-import React, {Component,file} from "react";
-import axios,{post} from 'axios';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
+function FileUploader() {
+    const [file, setFile] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
 
-class FileUploader extends Component{
+    function handleChange(e) {
+        setFile(e.target.files[0]);
+        setError("");
+    }
 
-    constructor(props){
-        super(props);
-        this.state={
-            image:''
+    async function handleSubmit() {
+        if (!file) {
+            setError("Please select a file first.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        setLoading(true);
+        setError("");
+
+        try {
+            const response = await axios.post("http://localhost:5002/saveDoc", formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            const newEntry = {
+                id: Date.now().toString(),
+                filename: file.name,
+                createdAt: new Date().toISOString(),
+                data: response.data,
+            };
+            const existing = JSON.parse(localStorage.getItem("wordieHistory") || "[]");
+            const deduplicated = existing.filter(e => e.filename !== newEntry.filename);
+            const updated = [newEntry, ...deduplicated].slice(0, 5);
+            localStorage.setItem("wordieHistory", JSON.stringify(updated));
+            navigate("/MindMap", { state: { mapId: newEntry.id } });
+        } catch (err) {
+            setError("Failed to process file. Make sure the server is running.");
+        } finally {
+            setLoading(false);
         }
     }
-    onChange(e)
-    {
-        let files=e.target.files;
-        console.log("Data File",files);
 
-        let reader = new FileReader();
-        reader.readAsDataURL(files[0]);
-        reader.onload=(e)=>{
-            // console.warn("File Data",e.target.result)
-            const url='';
-            const formData={file: e.target.result}
-            return post (url,formData).then(response =>console.warn("result",response))
-        }
-    }
-    render(){
-        return(
-
-            <div>
-
-
-                <form action = "http://localhost:5000/saveDoc" method = "post">
-                    <input type="file" name="file" onChange={(e)=>this.onChange(e)} className="fileButton" />
-                </form>   
-
-
-                {/* <div onSubmit={this.onFormSubmit}>
-                    <input type="file" name="file" onChange={(e)=>this.onChange(e)} className="fileButton" />
-                    <div>
-				        <button onClick={handleSubmission}>Submit</button>
-			        </div>
-                </div> */}
-
-
-            </div>
-        );
-    }
-};
+    return (
+        <div className="fileUploaderWrapper">
+            <label className="fileDropZone">
+                <input
+                    type="file"
+                    accept=".docx,.pdf,.txt"
+                    onChange={handleChange}
+                    style={{ display: 'none' }}
+                />
+                <span className="fileDropIcon">📄</span>
+                <span className="fileDropText">
+                    {file ? file.name : 'Click to choose a file'}
+                </span>
+                <span className="fileDropHint">.docx, .pdf, or .txt</span>
+            </label>
+            <button className="generateBtn" onClick={handleSubmit} disabled={loading}>
+                {loading ? "Processing..." : "Generate Mind Map"}
+            </button>
+            {error && <p className="uploadError">{error}</p>}
+        </div>
+    );
+}
 
 export default FileUploader;

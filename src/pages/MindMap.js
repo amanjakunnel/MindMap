@@ -1,66 +1,29 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Menu from "../components/Menu";
-import MindMapNode from "../components/MindMapNode";
 import FinalMindMapRender from "../components/FinalMindMapRender";
 
-// For Flask
+function MindMap() {
+    const location = useLocation();
+    const navigate = useNavigate();
 
-import {useState,useEffect} from 'react';
+    const history = JSON.parse(localStorage.getItem("wordieHistory") || "[]");
+    const mapId = location.state?.mapId;
+    const entry = mapId
+        ? history.find(e => e.id === mapId)
+        : history[0];
 
+    if (!entry) {
+        navigate("/");
+        return null;
+    }
 
-function MindMap(){
-
-    const [data, setData] = useState([{}])
-
-    useEffect(() => {
-        fetch("http://localhost:5000/members");
-      }, []);
-
-    // useEffect(()=>{
-    //         fetch("http://localhost:5000/members").then(res=>res.json()
-    //     ).then(
-    //         data=>{
-    //             setData(data)
-    //             console.log("This should work");
-                
-    //             console.log(data);
-    //             const fs = require('fs');
-    //             fs.writeFile ("test.json", JSON.stringify(data), function(err) {
-    //                 if (err) throw err;
-    //                 console.log('complete');
-    //                 }
-    //             );
-    //             console.log(data);
-    //         }
-    //     )
-    // },[])
-    
-    return(
+    return (
         <div>
-            <Menu></Menu>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-           
-            <div className="MindMapText">
-                Below is the Mind Map Viewer
-            </div>
-            <br></br>
-            <br></br>
-            <br></br>
-            
-            <FinalMindMapRender></FinalMindMapRender>
-
-
-            <br></br>
-            <br></br>   
-
-        </div>    
-    )
-    
-
+            <Menu />
+            <FinalMindMapRender mapData={entry.data} />
+        </div>
+    );
 }
 
 export default MindMap;

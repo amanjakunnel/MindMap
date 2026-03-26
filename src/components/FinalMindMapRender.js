@@ -1,10 +1,13 @@
-import React, { createRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import renderMindMap from './RenderMindMap';
 
-export default function FinalMindMapRender() {
-  const divRef = createRef();
-  useEffect(() => renderMindMap(divRef.current), [divRef]);
-  return (
-      <div ref={divRef} />
-  );
+export default function FinalMindMapRender({ mapData }) {
+  const divRef = useRef(null);
+
+  useEffect(() => {
+    const cleanup = renderMindMap(divRef.current, mapData);
+    return cleanup;
+  }, []);
+
+  return <div ref={divRef} />;
 }

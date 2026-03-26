@@ -1,86 +1,77 @@
 import React from "react";
-import { NavLink as Link } from 'react-router-dom';
+import { NavLink as Link, Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
 import wordie from '../images/WordieIcon.png';
 
-
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-
 export const Nav = styled.nav`
   background: white;
-  height: 80px;
   display: flex;
-  justify-content: space-around ;
-  // justify-content: space-between ;
-  padding: 5px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  border-bottom: 1px solid #e8e8e8;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+`;
+
+export const BrandLink = styled(RouterLink)`
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin: -8px -12px;
 `;
 
 export const NavLink = styled(Link)`
-  color:black;
+  color: #555;
   display: flex;
-  font-size:22px;
-  font-weight: 600;
+  font-family: headerFont;
+  font-size: 16px;
   align-items: center;
   text-decoration: none;
-  padding: 0 1.3rem;
+  padding: 8px 22px;
+  border-radius: 24px;
+  border: 2px solid transparent;
   cursor: pointer;
-  &.active {
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  &:hover {
+    border-color: #1aa3ff;
     color: #1aa3ff;
+  }
+  &.active {
+    background: #1aa3ff;
+    color: white;
+    border-color: #1aa3ff;
   }
 `;
 
-
 export const NavMenu = styled.div`
-  padding-top:110px;
   display: flex;
   align-items: center;
-  // margin-right: -24px;
   @media screen and (max-width: 768px) {
     display: none;
   }
 `;
 
 function Menu(){
+    const hasHistory = JSON.parse(localStorage.getItem("wordieHistory") || "[]").length > 0;
+
     return(
-        <div>
-          
-            <div className="Container">
-
-                <Nav>
-                    <a href="http://localhost:3000">
-                    <img src={wordie} className="wordieMenu"></img>
-                    </a>
-                    {/* <Link to={"/"}>  */}
-                      {/* <img src={wordie} className="wordieMenu"></img> */}
-                    {/* </Link>  */}
-
-                   {/* <NavLink to={"/"}> */}
-                   <a href="http://localhost:3000" className="impLink">
-                    
-                    <div class="MenuFlex">
-                      
-                      <br></br>
-                      <div className="Header">
-                        Wordie
-                      </div>
-                    </div>
-            
-                  {/* </NavLink> */}
-                  </a>
-
-                    <NavMenu>
-                      <NavLink to="/MindMap" activestyle className="Navlinks">
-                        Mind Map
-                      </NavLink >
-
-                    </NavMenu>
-              
-              </Nav> 
-
-      </div>
-        </div>
+        <Nav>
+            <BrandLink to="/">
+                <img src={wordie} className="wordieMenu" alt="Wordie logo" />
+                <span className="Header">Wordie</span>
+            </BrandLink>
+            {hasHistory && (
+                <NavMenu>
+                    <NavLink to="/History">
+                        History
+                    </NavLink>
+                </NavMenu>
+            )}
+        </Nav>
     );
 };
 

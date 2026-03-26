@@ -1,13 +1,13 @@
 export default function calculateLevel2Coordinates({
     numberOfNodes,
     parent,
-    radius,
     index
   }) {
-    const slice = Math.PI / (numberOfNodes - 1);
-    const angle = slice * index + parent.angle - (90 * Math.PI) / 180;
+    const spread = (60 * Math.PI) / 180;
+    const radius = 5.0;
+    const slice = numberOfNodes > 1 ? spread / (numberOfNodes - 1) : 0;
+    const angle = slice * index + parent.angle - spread / 2;
     const x = parent.x + radius * Math.cos(angle);
     const y = parent.y + radius * Math.sin(angle);
     return { x, y, angle };
   }
-  

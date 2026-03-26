@@ -24,34 +24,32 @@ code {
 }
 
 .wordieMenu{
-  height: 160px;
+  height: 52px;
+  width: auto;
 }
 
 .Header{
-  padding-top: 50px;
   font-family: headerFont;
-  font-size: 60px;
+  font-size: 30px;
   color: #1aa3ff;
-  text-shadow: 2px 2px #b3b3b3
-}
-
-.Menu{
-  box-shadow: 5px 10px;
-}
-
-.Container{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
+  text-shadow: 1px 1px #b3b3b3;
 }
 
 .HomeText{
-  font-size: 40px;
-  text-align: left; 
-  color: #666666;
-  padding-left:200px;
-  font-weight: 700;
+  font-size: 36px;
+  text-align: center;
+  color: #222;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.HomeSubText {
+  font-size: 18px;
+  color: #666;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 40px;
 }
 
 .impLink{
@@ -111,18 +109,204 @@ code {
     background-color: rgb(190, 254, 253);
   }
 
-.MindMapViwerWindow{
-  height: 20px;
-}
-
 .MindMapText{
   font-size: 30px;
-  text-align: center; 
+  text-align: center;
   color: #666666;
   font-weight: 700;
 }
 
-.fileButton{
+/* Home page layout */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.homeAnimate {
+  animation: fadeSlideIn 0.6s ease both;
+}
+
+.HomeContainer {
+  max-width: 860px;
+  margin: 60px auto 0;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.UploadSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* File uploader */
+.fileUploaderWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.fileDropZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 360px;
+  padding: 28px 20px;
+  border: 2px dashed #1aa3ff;
+  border-radius: 14px;
+  background: #f0f8ff;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.fileDropZone:hover {
+  background: #dff0ff;
+  border-color: #0088dd;
+}
+
+.fileDropIcon {
+  font-size: 32px;
+}
+
+.fileDropText {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  word-break: break-all;
+  text-align: center;
+}
+
+.fileDropHint {
+  font-size: 12px;
+  color: #888;
+}
+
+.generateBtn {
+  padding: 12px 32px;
+  background-color: #1aa3ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.generateBtn:hover:not(:disabled) {
+  background-color: #0088dd;
+  transform: translateY(-1px);
+}
+
+.generateBtn:disabled {
+  background-color: #a0d4f5;
+  cursor: not-allowed;
+}
+
+.uploadError {
+  color: #e03;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* History page */
+.historyContainer {
+  max-width: 680px;
+  margin: 60px auto 0;
+  padding: 0 40px;
+}
+
+.historyTitle {
+  font-family: headerFont;
+  font-size: 28px;
   color: #1aa3ff;
+  margin: 0 0 32px 0;
+}
+
+.historyEmpty {
+  font-size: 16px;
+  color: #888;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.historyCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.historyCardLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+  margin-right: 16px;
+}
+
+.historyCardFilename {
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.historyCardDate {
+  font-size: 13px;
+  color: #999;
+}
+
+.historyCardActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.historyViewBtn {
+  padding: 8px 22px;
+  background: #1aa3ff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.historyViewBtn:hover {
+  background: #0088dd;
+}
+
+.historyDeleteBtn {
+  background: none;
+  border: none;
+  color: #bbb;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+
+.historyDeleteBtn:hover {
+  color: #e03;
 }
 

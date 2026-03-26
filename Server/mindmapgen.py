@@ -2,7 +2,6 @@ import os
 import docx
 import PyPDF2
 import spacy
-import RAKE
 import operator
 from collections import Counter
 from string import punctuation
@@ -99,15 +98,11 @@ def rake_nltk_extraction(text):
     return keyword_extracted
 
 def rake_extraction(text):
-    stop_dir = 'StopWords.txt'
-    rake_object = RAKE.Rake(stop_dir)
-    keywords = Sort_Tuple(rake_object.run(text))[-10:]
-    keyphrases = [x[0] for x in keywords]
+    rake_object = Rake()
+    rake_object.extract_keywords_from_text(text)
+    keyphrases = rake_object.get_ranked_phrases()[:10]
     return keyphrases
 
-def Sort_Tuple(tup):
-    tup.sort(key = lambda x: x[1])
-    return tup
 
 def spacy_extraction_alt(text):
     nlp = spacy.load("en_core_web_lg")
