@@ -1,4 +1,4 @@
-# Wordie — AI-Powered Mind Map Generator
+# Wordie - AI-Powered Mind Map Generator
 
 **Wordie** turns any document into an interactive 3D mind map. Upload a PDF, DOCX, or TXT file, and the backend uses NLP to extract key concepts and relationships, which are then visualized as a navigable mind map in the browser.
 
